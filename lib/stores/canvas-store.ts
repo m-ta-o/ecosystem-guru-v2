@@ -1,6 +1,12 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import type { Entity, ValueFlow, CanvasState } from '@/lib/types/canvas';
+import type { Entity, Flow } from '@/lib/types/canvas';
+
+interface CanvasState {
+  entities: Entity[];
+  flows: Flow[];
+  selectedEntityId: string | null;
+}
 
 interface CanvasStore extends CanvasState {
   // Entity actions
@@ -10,8 +16,8 @@ interface CanvasStore extends CanvasState {
   setSelectedEntity: (id: string | null) => void;
 
   // Flow actions
-  addFlow: (flow: Omit<ValueFlow, 'id'>) => void;
-  updateFlow: (id: string, updates: Partial<ValueFlow>) => void;
+  addFlow: (flow: Omit<Flow, 'id'>) => void;
+  updateFlow: (id: string, updates: Partial<Flow>) => void;
   deleteFlow: (id: string) => void;
   setSelectedFlow: (id: string | null) => void;
 
@@ -112,7 +118,7 @@ export const useCanvasStore = create<CanvasStore>()(
     }),
 
     addFlow: (flow) => set((state) => {
-      const newFlow: ValueFlow = {
+      const newFlow: Flow = {
         ...flow,
         id: `flow-${Date.now()}-${flowCounter++}`,
       };

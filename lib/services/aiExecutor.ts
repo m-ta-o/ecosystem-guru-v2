@@ -1,4 +1,4 @@
-import { Entity, Flow } from '@/lib/types/canvas';
+import { Entity, Flow, ENTITY_TYPES, FLOW_TYPES, EntityType, FlowType } from '@/lib/types/canvas';
 import { AIAction } from './aiService';
 import { findNonOverlappingPosition } from '@/lib/utils/smartPositioning';
 import { getSemanticPosition } from '@/lib/utils/smartLayout';
@@ -255,6 +255,7 @@ export const parseAIResponse = (response: string): {
               y: entity.y || 300,
               width: entity.width || 200,
               height: entity.height || 120,
+              color: entity.color || ENTITY_TYPES[entity.type as EntityType]?.color || '#3B82F6',
               components: entity.components || [],
             },
           });
@@ -270,6 +271,7 @@ export const parseAIResponse = (response: string): {
               targetId: flow.targetId,
               type: flow.type,
               label: flow.label,
+              color: flow.color || FLOW_TYPES[flow.type as FlowType]?.color || '#3B82F6',
               value: flow.value,
               valueDescription: flow.valueDescription,
             },

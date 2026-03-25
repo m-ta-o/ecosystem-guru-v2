@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import type { AIMessage } from '@/lib/types/canvas';
+import type { Message } from '@/lib/types/canvas';
 
 interface AIStore {
-  messages: AIMessage[];
+  messages: Message[];
   isProcessing: boolean;
   isPanelOpen: boolean;
 
   // Message actions
-  addMessage: (message: Omit<AIMessage, 'timestamp'>) => void;
+  addMessage: (message: Omit<Message, 'id' | 'timestamp'>) => void;
   clearMessages: () => void;
 
   // UI state
@@ -21,6 +21,7 @@ export const useAIStore = create<AIStore>()(
   immer((set) => ({
     messages: [
       {
+        id: '1',
         role: 'assistant',
         content: 'Hello! I\'m the Business Guru. I can help you design and analyze business ecosystems. Try asking me to generate a business model for any company, or ask strategic questions about your canvas.',
         timestamp: Date.now(),
@@ -32,6 +33,7 @@ export const useAIStore = create<AIStore>()(
     addMessage: (message) => set((state) => {
       state.messages.push({
         ...message,
+        id: Date.now().toString(),
         timestamp: Date.now(),
       });
     }),
