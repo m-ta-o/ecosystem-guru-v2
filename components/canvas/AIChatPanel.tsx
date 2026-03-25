@@ -313,7 +313,7 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({
       hasCustomers: entities?.some((e) => e.type === "customer") || false,
       hasSuppliers: entities?.some((e) => e.type === "supplier") || false,
       hasPartners: entities?.some((e) => e.type === "partner") || false,
-      suggestions: []
+      suggestions: [] as string[]
     };
 
     if (!analysis.hasCustomers) {
