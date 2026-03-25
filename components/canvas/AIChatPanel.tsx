@@ -265,7 +265,7 @@ const AIChatPanel: React.FC<AIChatPanelProps> = ({
       lowerMessage === "clear" ||
       (lowerMessage.includes("clear") && (lowerMessage.includes("board") || lowerMessage.includes("canvas")))
     ) {
-      const actions = [];
+      const actions: Array<{ type: string; data: any }> = [];
       entities.forEach((entity) => {
         actions.push({ type: "delete_entity", data: { id: entity.id } });
       });
